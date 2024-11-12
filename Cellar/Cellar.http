@@ -1,0 +1,6 @@
+@Cellar_HostAddress = http://localhost:5279
+
+GET {{Cellar_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
