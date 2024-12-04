@@ -13,35 +13,20 @@ namespace Services.Services
             _userRepository = userRepository;
         }
 
-        public void Add(User user)
+        public void CreateUser(CreateUserDto dto) 
         {
-            throw new NotImplementedException();
-        }
-
-        public void CreateUser(CreateUserDto dto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task CreateUserAsync(CreateUserDto dto)
-        {
-            bool exists = await _userRepository.ExistsByUsernameAsync(dto.UserName);
-            if (exists)
-            {
-                throw new Exception("El nombre de usuario ya está en uso.");
-            }
+            //crea una nueva instancia de un usuario user 
             User newUser = new User()
-            {
-                Username = dto.UserName,
+            { 
+                UserName = dto.UserName,
                 Password = dto.Password
             };
             _userRepository.AddUser(newUser);
-            await _userRepository.SaveChangesAsync();
-
         }
-        public Task<bool> ExistsByUsernameAsync(string username)
+        public User? ValidateUser(AuthDto auth)
         {
-            throw new NotImplementedException();
+            return _userRepository.GetCredentials(auth.Password, auth.UserName);
         }
+
     }
 }

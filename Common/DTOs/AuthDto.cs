@@ -2,11 +2,12 @@
 
 namespace Common.DTOs
 {
-    public class CreateUserDto
+    public class AuthDto
     {
         [Required]
         public string UserName { get; set; } = string.Empty;
-        [MinLength(8)]
-        public required string Password { get; set; }
+        [Required]
+        public string Password { get; set; } = string.Empty;
+
     }
 }
