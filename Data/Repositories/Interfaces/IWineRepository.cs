@@ -1,15 +1,13 @@
 ﻿using Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repositories.Interfaces
 {
     public interface IWineRepository
     {
-        public void AddWine(Wine wine);
+        void AddWine(Wine wine);
         List<Wine> GetAllWines();
+        bool CheckWine(int WineId);
+        List<Wine> GetStock(string variety);
+        void UpdateStock(int wineId, int stock);
     }
 }

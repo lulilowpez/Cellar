@@ -3,50 +3,22 @@ using Data.Repositories.Interfaces;
 
 namespace Data.Repositories.Repositories
 {
-    public class URepository : IUserRepository
+    public class URepository : IUserRepository//me da error si no implmento todos los metodos de la interfaz
     {
-        private readonly List<User> Users;
-        public URepository()
+        private readonly CellarContext _cellarContext;
+        public URepository(CellarContext cellarContext)
         {
-            Users = new List<User>();
-            User user1 = new User()
-            {
-                Id = 1,
-                UserName = "Luli",
-                Password = "060292",
-            };
-            Users.Add(user1);
-            User user2 = new User()
-            {
-                Id = 2,
-                UserName = "Melo",
-                Password = "120710",
-            };
-            Users.Add(user2);
-            User user3 = new User()
-            {
-                Id = 3,
-                UserName = "Coraline",
-                Password = "021124",
-            };
-            Users.Add(user3);
-        {
-            throw new NotImplementedException();
+            _cellarContext = cellarContext;
         }
-    }
         public void AddUser(User user)
         {
-            Users.Add(user);
+           _cellarContext.Users.Add(user);//a la lista que le agregue en el contexto le agrega ese usuario
+            _cellarContext.SaveChanges();
         }
-
-        public Task<bool> ExistsByUsernameAsync(string username)
+        public User? GetCredentials(string password, string username)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task SaveChangesAsync()
-        {
-            throw new NotImplementedException();
+            return _cellarContext.Users
+                .FirstOrDefault(a => a.UserName == username && a.Password == password);
         }
     }
 }
